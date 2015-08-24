@@ -6,7 +6,7 @@ rvm:
 - 1.9.2
 - 1.9.3
 - 2.1.4
-- 2.2
+- 2.2.1
 os:
 - linux
 - osx
@@ -18,7 +18,7 @@ matrix:
     os: osx
   - rvm: 2.1.4
     os: osx
-  - rvm: 2.2
+  - rvm: 2.2.1
     os: osx
 deploy:
   provider: rubygems
