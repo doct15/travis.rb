@@ -7,7 +7,7 @@ describe Travis::CLI::Init do
   before(:each) do
     FileUtils.mkdir_p(tmp_path)
     Dir.chdir(tmp_path)
-    FileUtils.rm('old_travis.yml') if File.exist?('old_travis.yml')
+    FileUtils.rm('.travis.yml') if File.exist?('.travis.yml')
   end
 
   after(:each) do
@@ -21,25 +21,25 @@ describe Travis::CLI::Init do
 
   shared_examples_for 'travis init' do |language|
     example "travis init #{language} (empty directory)" do
-      File.exist?('old_travis.yml').should be_falsey
+      File.exist?('.travis.yml').should be_falsey
       run_cli('init', language, '--skip-enable', '-r', 'travis-ci/travis.rb').should be_success
-      stdout.should be == "old_travis.yml file created!\n"
-      File.exist?('old_travis.yml').should be_truey
-      File.read('old_travis.yml').should include("language: #{language}")
+      stdout.should be == ".travis.yml file created!\n"
+      File.exist?('.travis.yml').should be_truey
+      File.read('.travis.yml').should include("language: #{language}")
     end
 
-    example "travis init #{language} (old_travis.yml already exists, using --force)" do
-      File.open("old_travis.yml", "w") { |f| f << "old file" }
+    example "travis init #{language} (.travis.yml already exists, using --force)" do
+      File.open(".travis.yml", "w") { |f| f << "old file" }
       run_cli('init', language, '--force', '--skip-enable', '-r', 'travis-ci/travis.rb').should be_success
-      stdout.should be == "old_travis.yml file created!\n"
-      File.read("old_travis.yml").should_not be == "old file"
+      stdout.should be == ".travis.yml file created!\n"
+      File.read(".travis.yml").should_not be == "old file"
     end
 
-    example "travis init #{language} (old_travis.yml already exists, not using --force)" do
-      File.open("old_travis.yml", "w") { |f| f << "old file" }
+    example "travis init #{language} (.travis.yml already exists, not using --force)" do
+      File.open(".travis.yml", "w") { |f| f << "old file" }
       run_cli('init', language, '--skip-enable', '-r', 'travis-ci/travis.rb').should_not be_success
-      stderr.should be == "old_travis.yml already exists, use --force to override\n"
-      File.read('old_travis.yml').should be == "old file"
+      stderr.should be == ".travis.yml already exists, use --force to override\n"
+      File.read('.travis.yml').should be == "old file"
     end
   end
 
@@ -48,7 +48,7 @@ describe Travis::CLI::Init do
 
     let :result do
       run_cli('init', 'c', '--skip-enable', '-r', 'travis-ci/travis.rb')
-      YAML.load_file('old_travis.yml')
+      YAML.load_file('.travis.yml')
     end
 
     it 'sets compiler' do
@@ -67,7 +67,7 @@ describe Travis::CLI::Init do
 
     let :result do
       run_cli('init', 'cpp', '--skip-enable', '-r', 'travis-ci/travis.rb')
-      YAML.load_file('old_travis.yml')
+      YAML.load_file('.travis.yml')
     end
 
     it 'sets compiler' do
@@ -82,7 +82,7 @@ describe Travis::CLI::Init do
 
     let :result do
       run_cli('init', 'erlang', '--skip-enable', '-r', 'travis-ci/travis.rb')
-      YAML.load_file('old_travis.yml')
+      YAML.load_file('.travis.yml')
     end
 
     it 'sets compiler' do
@@ -96,7 +96,7 @@ describe Travis::CLI::Init do
 
     let :result do
       run_cli('init', 'go', '--skip-enable', '-r', 'travis-ci/travis.rb')
-      YAML.load_file('old_travis.yml')
+      YAML.load_file('.travis.yml')
     end
 
     it 'sets compiler' do
@@ -119,7 +119,7 @@ describe Travis::CLI::Init do
 
     let :result do
       run_cli('init', 'java', '--skip-enable', '-r', 'travis-ci/travis.rb')
-      YAML.load_file('old_travis.yml')
+      YAML.load_file('.travis.yml')
     end
 
     it 'sets compiler' do
@@ -134,7 +134,7 @@ describe Travis::CLI::Init do
 
     let :result do
       run_cli('init', 'node_js', '--skip-enable', '-r', 'travis-ci/travis.rb')
-      YAML.load_file('old_travis.yml')
+      YAML.load_file('.travis.yml')
     end
 
     it 'sets compiler' do
@@ -153,7 +153,7 @@ describe Travis::CLI::Init do
 
     let :result do
       run_cli('init', 'perl', '--skip-enable', '-r', 'travis-ci/travis.rb')
-      YAML.load_file('old_travis.yml')
+      YAML.load_file('.travis.yml')
     end
 
     it 'sets compiler' do
@@ -168,7 +168,7 @@ describe Travis::CLI::Init do
 
     let :result do
       run_cli('init', 'php', '--skip-enable', '-r', 'travis-ci/travis.rb')
-      YAML.load_file('old_travis.yml')
+      YAML.load_file('.travis.yml')
     end
 
     it 'sets compiler' do
@@ -183,7 +183,7 @@ describe Travis::CLI::Init do
 
     let :result do
       run_cli('init', 'python', '--skip-enable', '-r', 'travis-ci/travis.rb')
-      YAML.load_file('old_travis.yml')
+      YAML.load_file('.travis.yml')
     end
 
     it 'sets compiler' do
@@ -198,7 +198,7 @@ describe Travis::CLI::Init do
 
     let :result do
       run_cli('init', 'ruby', '--skip-enable', '-r', 'travis-ci/travis.rb')
-      YAML.load_file('old_travis.yml')
+      YAML.load_file('.travis.yml')
     end
 
     it 'sets compiler' do
@@ -214,7 +214,7 @@ describe Travis::CLI::Init do
 
     let :result do
       run_cli('init', 'scala', '--skip-enable', '-r', 'travis-ci/travis.rb')
-      YAML.load_file('old_travis.yml')
+      YAML.load_file('.travis.yml')
     end
 
     it 'sets compiler' do
