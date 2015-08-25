@@ -9,7 +9,7 @@ describe Travis::Client::Account do
     its(:type) { should be == 'user' }
     its(:repos_count) { should be == 200 }
     its(:inspect) { should be == "#<Travis::Client::Account: rkh>" }
-  end
+  end 
 
   context "known account" do
     let(:session) { Travis::Client.new }
